@@ -1,0 +1,82 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Microsoft Cognitive Services Face API Demo";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+<form method="post">
+    <div class="row">
+        <div class="col-sm-6">
+            <label>Photo #1</label>
+            <div style="max-height:400px; overflow-y:scroll; border:1px solid gray;">
+                <select class="image-picker" name="photo1">
+                    <option value=""></option>
+                    @foreach(var item in Model.Images) {
+                        <option data-img-src="@item.Url" value="@item.Name">@item.Name</option>
+                    }
+                </select>
+            </div>            
+        </div>
+        <div class="col-sm-6">
+            <label>Photo #2</label>
+            <div style="max-height:400px; overflow-y:scroll; border:1px solid gray;">
+                <select class="image-picker" name="photo2">
+                    <option value=""></option>
+                    @foreach(var item in Model.Images) {
+                        <option data-img-src="@item.Url" value="@item.Name">@item.Name</option>
+                    }
+                </select>
+            </div>            
+        </div>
+    </div>
+
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <a asp-page="/Index" class="btn btn-default" role="button">Reset</a>
+
+    @Html.AntiForgeryToken()
+</form>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <pre id="results"></pre>    
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/plugins/image-picker/image-picker.min.js"></script>
+    <link rel="stylesheet" href="~/plugins/image-picker/image-picker.css" />
+
+    <script>
+        $("select").imagepicker();
+
+        $("form").on("submit", function(e) {
+            e.preventDefault();
+    
+            $.ajax({
+                type: "POST",
+                url: "/?handler=Upload",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN", $('input:hidden[name="__RequestVerificationToken"]').val());
+                    $("#results").text("Uploading...");
+                },
+                data: {
+                    photo1: $("select[name=photo1]").val(),
+                    photo2: $("select[name=photo2]").val()
+                },
+                dataType: "json",
+                success: function (response) {
+                    $("#results").text(JSON.stringify(response));
+                },
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+        });
+
+    
+    </script>
+}
