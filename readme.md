@@ -4,6 +4,7 @@ A quick demo using ASP.NET Core, Razor Pages and Jquery for AJAX calls to send i
 
 It was developed on a Mac using Visual Studio for Mac v7.4.3.
 
+![Demo screenshot](demo.png)
 
 ####The Yale Face Database samples
 
