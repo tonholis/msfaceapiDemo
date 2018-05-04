@@ -1,4 +1,4 @@
-﻿#Microsoft Cognitive Services Face API Demo
+﻿# Microsoft Cognitive Services Face API Demo
 
 A quick demo using ASP.NET Core, Razor Pages and Jquery for AJAX calls to send images to compare on MS Face API.
 
@@ -6,7 +6,7 @@ It was developed on a Mac using Visual Studio for Mac v7.4.3.
 
 ![Demo screenshot](demo.png)
 
-####The Yale Face Database samples
+### The Yale Face Database samples
 
 The database contains 165 GIF images of 15 subjects (subject01, 
 subject02, etc.).  There are 11 images per subject, one  for each 
